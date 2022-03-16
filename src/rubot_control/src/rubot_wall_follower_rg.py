@@ -28,7 +28,7 @@ state_dict_ = {
 def clbk_laser(msg):
     global regions_
     regions_ = {
-        'front':  min(min(msg.ranges[301:420]), 3),
+        'front':  min(min(msg.ranges[301:420]), 3), # min(min(msg.ranges[660:719]),min(msg.ranges[0:60]), 3),
         'fright':  min(min(msg.ranges[181:300]), 3),
         'right':   min(min(msg.ranges[179:181]), 3),
         'bright':   min(min(msg.ranges[60:178]), 3),
@@ -97,7 +97,7 @@ def find_wall():
 
 def turn_left():
     msg = Twist()
-    msg.angular.z = 0.5
+    msg.angular.z = 0.5	# velocitat angular positiva perque estem a punt de topar amb la paret
     return msg
 
 
@@ -112,7 +112,7 @@ def follow_the_wall():
 def follow_corner():
     msg = Twist()
     msg.linear.x = 0.1
-    msg.angular.z = -1
+    msg.angular.z = -1		# Anem cap al corner, velocitat angular negativa
     return msg
 
 def main():
@@ -125,7 +125,7 @@ def main():
     rate = rospy.Rate(20)
     while not rospy.is_shutdown():
         msg = Twist()
-        if state_ == 0:
+        if state_ == 0:		# Definició dels diferents estats
             msg = find_wall()
         elif state_ == 1:
             msg = turn_left()

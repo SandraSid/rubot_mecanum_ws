@@ -39,10 +39,10 @@ class GoPiGo3:
 
         rospy.loginfo("Closest distance of %5.2f m at %5.1f degrees.",
                       closestDistance, angleClosestDistance)
-
+#Nomes mira cap endavant (cap endarrera es complicaria hi s'hauria de girar en sentit contari
         if closestDistance < self._distanceLaser and -90 < angleClosestDistance < 90:
             self._msg.linear.x = self._backwardSpeed * self._speedFactor
-            self._msg.angular.z = -self.__sign(angleClosestDistance) * self._rotationSpeed * self._speedFactor
+            self._msg.angular.z = -self.__sign(angleClosestDistance) * self._rotationSpeed * self._speedFactor #Sentit horari
             rospy.logwarn("Within laser distance threshold. Rotating the robot (z=%4.1f)...", self._msg.angular.z)
 
         else:
